@@ -1,2 +1,57 @@
 .App {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px 20px;
+    button {
+      background-color: #ea5455;
+      width: 120px;
+      height: 40px;
+      color: white;
+      border-style: none;
+    }
+  }
+  .main {
+    padding: 10px 20px;
+    .table {
+      width: 100%;
+      border: 1px solid #929aab;
+      height: 50px;
+      th {
+        background-color: #929aab;
+        color: white;
+        height: 40px;
+      }
+      td {
+        padding: 10px 20px;
+        p {
+          display: inline-block;
+          width: 100px;
+          height: 50px;
+          background-color: #eeeeee;
+          text-align: center;
+          line-height: 50px;
+        }
+      }
+    }
+  }
+  .footer {
+    padding: 10px 20px;
+    p,
+    input {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 125px;
+      height: 50px;
+      background-color: #eeeeee;
+      text-align: center;
+      line-height: 50px;
+      margin-left: 20px;
+      padding: 0;
+    }
+  }
 }
