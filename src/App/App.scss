@@ -20,7 +20,8 @@
     table {
       width: 100%;
       border: 1px solid #929aab;
-      height: 140px;
+      height: 130px;
+      margin-bottom: 20px;
       th {
         background-color: #929aab;
         color: white;
@@ -53,6 +54,7 @@
       line-height: 50px;
       margin-left: 20px;
       padding: 0;
+      border-style: none;
     }
   }
 }

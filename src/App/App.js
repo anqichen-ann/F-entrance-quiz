@@ -5,6 +5,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       studentList: '',
       groupList: [[], [], [], [], [], []],
     };
@@ -30,6 +31,42 @@ class App extends Component {
       })
       .catch((error) => console.log(error));
   };
+
+  handleFocus = (event) => {
+    event.target.placeholder = ''
+  }
+
+  handleChange = (event) => {
+      this.setState({
+        name:event.target.value
+      })
+  }
+
+  handleEnter = (event) => {
+    console.log(event)
+    if(event.keyCode == 13){
+      let formData = {
+        'studentName': this.state.name
+    }
+    var opts = {
+        method:"POST", 
+        body:JSON.stringify(formData),   
+        mode: 'cors',
+        headers: {
+            "Content-Type": "application/json"
+            },
+    }
+    const url = 'http://localhost:8080/addStudent';
+    const request = fetch(url,opts)
+                .then(res=>{res.json()})
+                .then(data=>{
+                    this.setState({
+                      studentList:data,
+                    })
+                })
+                .catch(error=>console.log(error));
+    }
+  }
 
   render() {
     return (
@@ -70,7 +107,8 @@ class App extends Component {
                 {index + 1}.{student}
               </p>
             ))}
-          <input type="text" value="+添加学员" />
+          <input type="text" placeholder="+添加学员" value={this.state.name} onKeyUp={this.handleEnter}
+          onFocus={this.handleFocus} onChange={this.handleChange}/>
         </footer>
       </div>
     );
