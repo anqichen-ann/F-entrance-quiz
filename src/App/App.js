@@ -26,6 +26,7 @@ class App extends Component {
         this.setState({
           groupList: data,
         });
+        sessionStorage.setItem('groupList',JSON.stringify(data));
       })
       .catch((error) => console.log(error));
   };
@@ -35,12 +36,22 @@ class App extends Component {
       <div data-testid="app" className="App">
         <header className="header">
           <h2>分组列表</h2>
-          <button type="button" onClick={this.handleGroup}>
+          <button onClick={this.handleGroup}>
             分组学员
           </button>
         </header>
         <main className="main">
-          {this.state.groupList.map((list, index) => (
+          {JSON.parse(sessionStorage.getItem('groupList'))? JSON.parse(sessionStorage.getItem('groupList')).map((list, index) => (
+            <table>
+              <tr>
+                <th>{index + 1} 组</th>
+              </tr>
+              <tr>
+                <td>{list && list.map((item) => <p>{item}</p>)}</td>
+              </tr>
+            </table>
+          )) : 
+          this.state.groupList.map((list, index) => (
             <table>
               <tr>
                 <th>{index + 1} 组</th>
