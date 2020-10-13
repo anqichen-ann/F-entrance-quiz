@@ -5,52 +5,60 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentList: [
-        '成吉思汗',
-        '鲁班七号',
-        '太乙真人',
-        '钟无艳',
-        '花木兰',
-        '雅典娜',
-        '芈月',
-        '白起',
-        '刘禅',
-        '庄周',
-        '马超',
-        '刘备',
-        '哪吒',
-        '大乔',
-        '蔡文姬',
-      ],
+      studentList: '',
+      groupList: [[], [], [], [], [], []],
     };
+    const url = 'http://localhost:8080/student';
+    fetch(url, { method: 'get' })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          studentList: data,
+        });
+      });
   }
+
+  handleGroup = () => {
+    const url = 'http://localhost:8080/group';
+    fetch(url, { method: 'get' })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          groupList: data,
+        });
+      })
+      .catch((error) => console.log(error));
+  };
 
   render() {
     return (
       <div data-testid="app" className="App">
         <header className="header">
           <h2>分组列表</h2>
-          <button type="button">分组学员</button>
+          <button type="button" onClick={this.handleGroup}>
+            分组学员
+          </button>
         </header>
         <main className="main">
-          <table className="table">
-            <tr>
-              <th>1 组</th>
-            </tr>
-            <tr>
-              <td>
-                <p>1.成吉思汗</p>
-              </td>
-            </tr>
-          </table>
+          {this.state.groupList.map((list, index) => (
+            <table>
+              <tr>
+                <th>{index + 1} 组</th>
+              </tr>
+              <tr>
+                <td>{list && list.map((item) => <p>{item}</p>)}</td>
+              </tr>
+            </table>
+          ))}
         </main>
         <footer className="footer">
           <h2>学员列表</h2>
-          {this.state.studentList.map((student, index) => (
-            <p>
-              {index + 1}.{student}
-            </p>
-          ))}
+          {this.state.studentList[0] &&
+            this.state.studentList.map((student, index) => (
+              <p>
+                {index + 1}.{student}
+              </p>
+            ))}
           <input type="text" value="+添加学员" />
         </footer>
       </div>
